@@ -1,0 +1,46 @@
+body {
+    background-color: #efefef;
+}
+
+.login-div {
+    width: 75%;
+    margin: 1.5% auto;
+}
+
+.form-container {
+    width: 50%;
+    margin: 2.5% auto;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.15rem;
+    border: #ced4da solid 1px;
+}
+
+.header-button {
+    border-radius: .25rem;
+    font-size: 1.2rem;
+    border: none; 
+    margin-top: 1.5%;
+    max-width: 100%;
+    padding: 0.3rem 0.8rem 0.35rem 0.8rem;
+}
+
+.btn-green {
+    background-color: #0CAC64;
+    color: white;
+    transition: background-color .15s ease-in-out;
+}
+
+.btn-green:hover {
+    background-color: #0DBF6F;
+    transition: background-color .15s ease-in-out;
+}
+
+@media only screen and (max-width: 900px) {
+    .form-container {
+        width: 100%;
+    }
+    .login-div {
+        width: 90%;
+    }
+  }

@@ -1,0 +1,17 @@
+# Use the PHP 7.3 runtime by replacing "php72" below with "php73"
+runtime: php73
+
+# Defaults to "serve index.php" 
+entrypoint: serve ./pages/index.php
+
+# If your main page is index.php, comment the above entrypoint setting 
+
+handlers:
+- url: /styles
+  static_dir: styles
+
+- url: /js
+  static_dir: js
+
+- url: /images
+  static_dir: images

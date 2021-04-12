@@ -1,0 +1,133 @@
+body {
+    background-color: #efefef;
+}
+
+.dashboard-container {
+    width: 75%;
+    margin: 1.5% auto;  
+}
+
+.dashboard-header-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.grid {
+    margin-top: 1.4%;
+}
+
+.grid:hover {
+    color: black;
+}
+
+.icon-container {
+    margin-top: 1.5%;
+    text-align: center;
+    color: grey;
+    width: 50px;
+    height: 80%;
+}
+
+.icon-container:hover {
+    border-radius: 45%;
+    background-color: #CCCCCC;
+    box-shadow: 0 0 0 3px #CCCCCC;
+    cursor: pointer;
+}
+
+.tutorial-list-container {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.tutorial-container {
+    width: 100%;
+    margin: 1% auto;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.15rem;
+    border: #ced4da solid 1px;
+}
+
+.tutorial-container-grid {
+    width: 32%;
+}
+
+.tutorial-container-list {
+    width: 100%;
+}
+
+.tutorial-header-container {
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tutorial-button-container {
+    margin-top: -2%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;    
+    justify-content: flex-start; 
+    flex-direction: row; 
+}
+
+/* buttons  */
+.tutorial-button {
+    border-radius: .25rem;
+    font-size: 1.2rem;
+    border: none; 
+    margin-top: 2%;
+    max-width: 35%;
+    padding: 0.3rem 0.8rem 0.35rem 0.8rem;
+    text-decoration: none;
+    margin-right: 0.5%;
+}
+
+.tutorial-button:hover {
+    cursor: pointer;
+}
+
+.btn-green {
+    background-color: #0CAC64;
+    color: white;
+    transition: background-color .15s ease-in-out;
+}
+
+.btn-green:hover {
+    background-color: #0DBF6F;
+    color: white;
+    transition: background-color .15s ease-in-out;
+}
+
+.btn-red {
+    background-color: #ff0000;
+    color: white;
+    transition: background-color .15s ease-in-out;
+}
+
+.btn-red:hover {
+    background-color: #ff4747;
+    color: white;
+    transition: background-color .15s ease-in-out;
+}
+
+@media only screen and (max-width: 1280px) {
+    .icon-container {
+        display: none;
+    }
+    .tutorial-container-grid {
+        width: 100%;
+    }
+    .dashboard-container {
+        width: 90%;
+        margin: 1.5% auto;  
+    }
+  }
