@@ -1,3 +1,47 @@
+<?php 
+require("../database/connect-db.php");
+
+function isValidCredentials($email, $password) {
+    global $db; 
+
+    $query = "SELECT * FROM users";
+
+    $statement = $db->prepare($query);
+    $statement->execute();
+    
+    $results = $statement->fetchAll(); //fetch() returns 1 row 
+
+    $statement->closeCursor(); // release the lock 
+    foreach($results as $result) {
+        if($result['email'] == $email && $result['password'] == $password) {
+            session_start();
+
+            $_SESSION['firstName'] = $result['firstName'];
+            $_SESSION['lastName'] = $result['lastName'];
+            $_SESSION['email'] = $result['email'];
+            setcookie('firstName', $result['firstName'], time() + 3600);
+            setcookie('lastName', $result['lastName'], time() + 3600);
+            setcookie('email', $result['email'], time() + 3600);
+            return True;
+        }
+    }
+    return False;
+}
+
+function authenticate() {
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $email = $_POST['email'];
+        $password = hash("md5", $_POST['password']);
+
+        if(isValidCredentials($email, $password)) {
+            header("Location: ./dashboard.php");
+        } 
+    }
+}
+
+authenticate();
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,17 +61,17 @@
             <h1>Try Tutorial Hub Now</h1>
             <hr style="margin: auto;">
             <div class="form-container">
-                <form>
+                <form action="<?php $_SERVER['PHP_SELF']?>" method="post">
                     <h3 style="margin-bottom: 3.5%;">Welcome Back</h3>
                     <hr>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" autofocus required>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" value="<?php if(!empty($_POST['email'])) echo $_POST['email'] ?>"autofocus required>
                         <span class="error_message" id="msg_email"></span>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" required>
+                        <input type="password" class="form-control" id="password" name="password" required>
                         <span class="error_message" id="msg_password"></span>
                     </div>
                     <div class="mb-3 form-check" style="margin-top: -10px;">
@@ -35,6 +79,7 @@
                         <label class="form-check-label" for="exampleCheck1">Show Password</label>
                     </div>
                     <hr>
+                    <span class="error_message"><?php if(!empty($_POST['email']) && !isValidCredentials($_POST['email'], hash("md5", $_POST['password']))) echo "Email or password is invalid"?></span>
                     <div style="text-align: center;">
                         <button type="submit" class="header-button btn-green">Login</button>
                     </div>

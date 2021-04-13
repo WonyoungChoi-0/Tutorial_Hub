@@ -15,7 +15,7 @@
                 <div class="jumbotron-div">
                     <h1 class="jumbotron-header">Lead the workplace</h1>
                     <h3 class="jumbotron-header" style="margin-top: 0.5%;">Create interactive tutorials to manage your workplace.</h3>
-                    <a class="header-button btn-green" style="margin-top: 1%;" href="./register">Try it out now</a>
+                    <a class="header-button btn-green" style="margin-top: 1%;" href="./register.php">Try it out now</a>
                 </div>
             </div>
 

@@ -10,7 +10,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="nav-container container-fluid">
-            <a class="navbar-brand" href="./"><i class="fas fa-tasks" style="margin-right:5px;"></i>Tutorial Hub</a>
+            <a class="navbar-brand" href="./landing.php"><i class="fas fa-tasks" style="margin-right:5px;"></i>Tutorial Hub</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -20,10 +20,17 @@
                         <a class="nav-link" aria-current="page" href="#">How it works?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./register">Get Started</a>
+                        <a class="nav-link" href="./register.php">Get Started</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./login"><i class="fas fa-user" style="margin-right:5px;"></i>Login</a>
+                        <?php 
+                            session_start();
+                            if(isset($_SESSION['firstName'])) {
+                                echo "<a class='nav-link' href='../php/logout.php'><i class='fas fa-user' style='margin-right:5px;'></i>Logout</a>";
+                            } else {
+                                echo "<a class='nav-link' href='./login.php'><i class='fas fa-user' style='margin-right:5px;'></i>Login</a>";
+                            }
+                        ?>
                     </li>
                 </ul>
             </div>

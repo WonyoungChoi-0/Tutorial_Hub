@@ -1,0 +1,9 @@
+Tutorials
+- title: varchar(255)
+- description: varchar(4000)
+
+Users
+- firstName: varchar(255)
+- lastName: varchar(255)
+- email: varchar(255)
+- password: varbinary(8000)
