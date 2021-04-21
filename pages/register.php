@@ -39,6 +39,21 @@ function registerUser()
             $statement->execute();
 
             $statement->closeCursor(); 
+
+            $query = "SELECT * FROM users";
+
+            $statement = $db->prepare($query);
+            $statement->execute();
+            
+            $results = $statement->fetchAll(); //fetch() returns 1 row 
+
+            $statement->closeCursor(); // release the lock 
+            foreach($results as $result) {
+                if($result['email'] == $email) {
+                    $_SESSION['userID'] = $result['userID'];
+                    setcookie('userID', $result['userID'], time() + 3600);
+                }
+            }
             session_start();
 
             $_SESSION['firstName'] = $first_name;

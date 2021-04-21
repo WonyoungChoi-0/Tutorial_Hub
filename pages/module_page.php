@@ -7,6 +7,9 @@
         <link rel="stylesheet" type="text/css" href="../styles/module_page.css">
         <link rel="stylesheet" type="text/css" href="../styles/base.css">
 </head>
+<?php 
+    if(isset($_COOKIE['firstName'])) {
+?>
 <body>
     <header>
         <?php include "../components/navbar.php" ?>
@@ -47,4 +50,10 @@
     </main>
     <script src="../js/module_page.js"></script>
 </body>
+
+<?php 
+    } else {
+        header('Location: ./login.php');
+    }
+?>
 </html>

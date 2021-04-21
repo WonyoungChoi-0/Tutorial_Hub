@@ -1,3 +1,49 @@
+<?php 
+require("../database/connect-db.php");
+if (isset($_GET['btnaction']))
+{	
+   try 
+   { 	
+      switch ($_GET['btnaction']) 
+      {
+         case 'View': viewTutorial(); break;
+         case 'Share': shareTutorial();  break;
+         case 'Edit': editTutorial();  break;
+         case 'Delete': deleteTutorial();  break; 
+      }
+   }
+   catch (Exception $e)       // handle any type of exception
+   {
+      $error_message = $e->getMessage();
+      echo "<p>Error message: $error_message </p>";
+   }   
+}
+?>
+
+<?php
+function deleteTutorial()
+{
+	global $db; 
+    $tutorialID = $_GET['tutorialID'];
+
+    $query = "DELETE FROM tutorials WHERE tutorialID=$tutorialID";	
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $statement->closeCursor();
+    header("Location: ./dashboard.php");
+}
+
+function editTutorial()
+{
+	global $db; 
+    $tutorialID = $_GET['tutorialID'];
+    
+    session_start();
+    $_SESSION['edit_tutorial_id'] = $tutorialID;
+    header("Location: ./tutorial_index.php");
+}
+?>
+
 
 <html lang="en">
 <head>
@@ -41,6 +87,10 @@
                         $title = $result['title'];
                         $date = $result['date'];
                         $description = $result['description'];
+                        if($result['userID'] != $_COOKIE['userID']) {
+                            continue;
+                        }
+                        $tutorialID = $result['tutorialID'];
                         echo " 
                         <div class='tutorial-container'>
                             <div class='tutorial-header-container'>
@@ -53,12 +103,12 @@
                                 $description
                             </p>
                             <div class='tutorial-button-container'>
-                                <form class='tutorial-button-container' method='get' action='\$_SERVER['PHP_SELF']'>
-                                    <a class='tutorial-button btn-green' name='btnaction' value='view'>View</a>
-                                    <a class='tutorial-button btn-green' name='btnaction' value='share'>Share</a>
-                                    <a class='tutorial-button btn-green' name='btnaction' value='edit'>Edit</a>
-                                    <a class='tutorial-button btn-red' name='btnaction' value='delete'>Delete</a>
-                                    <input type='hidden' name='title' value=$title>
+                                <form class='tutorial-button-container' method='get' action='". $_SERVER['PHP_SELF'] . "'>
+                                    <input type='submit' class='tutorial-button btn-green' name='btnaction' value='View'/>
+                                    <input type='submit' class='tutorial-button btn-green' name='btnaction' value='Share'/>
+                                    <input type='submit' class='tutorial-button btn-green' name='btnaction' value='Edit'/>
+                                    <input type='submit' class='tutorial-button btn-red' name='btnaction' value='Delete'/>
+                                    <input type='hidden' name='tutorialID' value='$tutorialID'>
                                 </form>
                             </div>
                         </div>
@@ -66,7 +116,7 @@
                         ";
                     }
                 ?>
-                <a class="tutorial-button btn-green" href="./tutorial_index.php">Create New Tutorial</a>
+                <a class="tutorial-button btn-green" href="./tutorial_index.php?from=dash">Create New Tutorial</a>
             </div>
         </div>
     </main>
@@ -80,35 +130,3 @@
 ?>
 </html>
 
-<?php 
-if (isset($_GET['btnaction']))
-{	
-   try 
-   { 	
-      switch ($_GET['btnaction']) 
-      {
-         case 'view': viewTutorial(); break;
-         case 'share': shareTutorial();  break;
-         case 'edit': editTutorial();  break;
-         case 'delete': deleteTutorial();  break; 
-      }
-   }
-   catch (Exception $e)       // handle any type of exception
-   {
-      $error_message = $e->getMessage();
-      echo "<p>Error message: $error_message </p>";
-   }   
-}
-?>
-
-<?php
-function deleteTutorial()
-{
-	global $db; 
-
-    $query = "DELETE FROM tutorials WHERE title=Opening the building";	
-    $statement = $db->prepare($query);
-    $statement->execute();
-    $statement->closeCursor();
-}
-?>

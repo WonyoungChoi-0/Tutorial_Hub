@@ -19,9 +19,11 @@ function isValidCredentials($email, $password) {
             $_SESSION['firstName'] = $result['firstName'];
             $_SESSION['lastName'] = $result['lastName'];
             $_SESSION['email'] = $result['email'];
+            $_SESSION['userID'] = $result['userID'];
             setcookie('firstName', $result['firstName'], time() + 3600);
             setcookie('lastName', $result['lastName'], time() + 3600);
             setcookie('email', $result['email'], time() + 3600);
+            setcookie('userID', $result['userID'], time() + 3600);
             return True;
         }
     }
