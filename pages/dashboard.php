@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require("../database/connect-db.php");
 if (isset($_GET['btnaction']))
 {	
@@ -38,9 +39,14 @@ function editTutorial()
 	global $db; 
     $tutorialID = $_GET['tutorialID'];
     
-    session_start();
     $_SESSION['edit_tutorial_id'] = $tutorialID;
     header("Location: ./tutorial_index.php");
+}
+
+function viewTutorial() {
+    $tutorialID = $_GET['tutorialID'];
+    $_SESSION['view_tutorial_id'] = $tutorialID;
+    header("Location: ./viewpage.php?index=1");
 }
 ?>
 
@@ -59,7 +65,9 @@ function editTutorial()
 ?>
 <body>
     <header>
-        <?php include "../components/navbar.php" ?>
+        <?php include "../components/navbar.php";
+        
+        ?>
     </header>
 
     <main>

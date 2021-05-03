@@ -17,12 +17,11 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">How it works?</a>
+                        <a class="nav-link" aria-current="page" href="./enter_code.php">Have a Code?</a>
                     </li>
                     <li class="nav-item">
                         <?php 
-                            session_start();
-                            if(isset($_SESSION['firstName'])) {
+                            if(isset($_COOKIE['firstName'])) {
                                 echo "<a class='nav-link' href='./dashboard.php'>My Dashboard</a>";
                             } else {
                                 echo "<a class='nav-link' href='./register.php'>Get Started</a>";
@@ -31,8 +30,8 @@
                     </li>
                     <li class="nav-item">
                         <?php 
-                            if(isset($_SESSION['firstName'])) {
-                                echo "<a class='nav-link' href='../php/logout.php'><i class='fas fa-user' style='margin-right:5px;'></i>Logout</a>";
+                            if(isset($_COOKIE['firstName'])) {
+                                echo "<a class='nav-link' href='./logout.php'><i class='fas fa-user' style='margin-right:5px;'></i>Logout</a>";
                             } else {
                                 echo "<a class='nav-link' href='./login.php'><i class='fas fa-user' style='margin-right:5px;'></i>Login</a>";
                             }

@@ -1,0 +1,18 @@
+.header-div{
+    width: 75%;
+    margin: 1.5% auto;
+}
+
+.form-container {
+    width: 50%;
+    margin: 2.5% auto;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.15rem;
+    border: #ced4da solid 1px;
+}
+
+.button-submit {
+    width: 100%;
+    border-radius: 0.15rem;
+}

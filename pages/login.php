@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require("../database/connect-db.php");
 
 function isValidCredentials($email, $password) {
@@ -14,8 +15,6 @@ function isValidCredentials($email, $password) {
     $statement->closeCursor(); // release the lock 
     foreach($results as $result) {
         if($result['email'] == $email && $result['password'] == $password) {
-            session_start();
-
             $_SESSION['firstName'] = $result['firstName'];
             $_SESSION['lastName'] = $result['lastName'];
             $_SESSION['email'] = $result['email'];

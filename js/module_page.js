@@ -7,7 +7,17 @@
                 </div> */}
 
 
+let checkboxNum = document.getElementsByClassName("check").length + 1;
+
 const checklist = document.getElementById("checklist-table");
+
+
+const reorder = () => {
+    let checkItems = document.getElementsByClassName("check");
+    for(var i = 0; i < checkItems.length; i++) {
+        checkItems.item(i).setAttribute("name", "checklist-".concat((i+1).toString()));
+    }
+}
 
 const addChecklistItem = () => {
     // const item = document.createElement("li");
@@ -27,7 +37,11 @@ const addChecklistItem = () => {
 
     const textbox = document.createElement("input");
     textbox.classList.add("form-control");
+    textbox.classList.add("check");
     textbox.type = "text";
+
+    textbox.setAttribute("name", "checklist-".concat(checkboxNum.toString()));
+    checkboxNum++;
     inputGroup.appendChild(textbox);
 
     const addButton = document.createElement("div");
@@ -59,11 +73,25 @@ const addChecklistItem = () => {
 }
 
 const deleteChecklistItem = (e) => {
-    const item = e.target; 
+    let item = e.target; 
     
     if(item.classList[0] === "far") {
         item.parentElement.parentElement.remove();
     } else {
         e.target.parentElement.remove();
     }
+    checkboxNum--;
+    reorder();
+}
+
+const deleteItem = (e) => {
+    const item = e;
+    
+    if(item.classList[0] === "far") {
+        item.parentElement.parentElement.remove();
+    } else {
+        item.parentElement.remove();
+    }
+    checkboxNum--;
+    reorder();
 }

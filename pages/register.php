@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require("../database/connect-db.php");
 function checkEmail($email) {
     global $db; 

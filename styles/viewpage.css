@@ -1,0 +1,45 @@
+.header-div {
+    width: 75%;
+    margin: 1.5% auto;
+}
+
+.body-container {
+    width: 60%;
+    margin: auto;
+}
+
+.checklist-container {
+    margin: 2.5% auto 2.5%;
+    width: 40%;
+}
+
+.button-container {
+    text-align: center;
+}
+
+.uploaded-image-container {
+    margin: 1.5% auto;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.uploaded-image {
+    margin: 1.5% auto;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.15rem;
+}
+
+@media only screen and (max-width: 900px) {
+    .header-div {
+        width: 90%;
+    }
+    .body-container {
+        width: 90%;     
+    }
+    .checklist-container {
+        width: 100%;
+    }
+  }

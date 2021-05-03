@@ -1,6 +1,7 @@
 <?php 
+session_start();
 require("../database/connect-db.php");
-
+$edit_mode = true;
 function createTutorial()
 {
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -9,25 +10,49 @@ function createTutorial()
         $description = $_POST['description'];
         $userID = $_COOKIE['userID'];
         global $db; 
-        session_start();
         if(isset($_SESSION["edit_tutorial_id"])) {
             $query = "UPDATE tutorials 
                         SET title='$title', date='$date', description='$description', userID='$userID'
                         WHERE tutorialID=" . $_SESSION['edit_tutorial_id'];
-            unset($_SESSION["edit_tutorial_id"]);
         } else {
+
+        $code = "";
+        $alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        
+        do {
+            $code = "";
+            while(strlen($code) < 4) {
+                $i = rand(0, 25); 
+                $code = $code . $alphabet[$i];
+            }
+            
+            $query = "SELECT * FROM tutorial_pages WHERE code=$code";
+            $statement = $db->prepare($query);
+            $statement->execute();
+        } while($statement->rowCount() > 0);
+
         $query = "INSERT INTO tutorials (
             title,
             date,
             description,
-            userID) VALUES ('$title', '$date', '$description', '$userID') ";
+            userID,
+            code) VALUES ('$title', '$date', '$description', '$userID', '$code') ";
         }
         $statement = $db->prepare($query);
         $statement->execute();
+        if(!isset($_SESSION["edit_tutorial_id"])) {
+            $_SESSION['edit_tutorial_id'] = $db->lastInsertId();
+        }
 
         $statement->closeCursor(); 
-
-        header("Location: ./dashboard.php");
+        if(isset($_POST['done'])) {
+            unset($_SESSION["edit_tutorial_id"]);
+            header("Location: ./dashboard.php");
+            exit();
+        } else if(isset($_POST['next'])) {
+            header("Location: ./module_page.php?index=1");
+            exit();
+        }
         
     }
 }
@@ -57,6 +82,7 @@ createTutorial();
         $prev_description = "";
         
         if(isset($_GET['from']) && $_GET['from'] == 'dash') {
+            $edit_mode = false;
             unset($_SESSION["edit_tutorial_id"]);
         }
 
@@ -92,7 +118,14 @@ createTutorial();
             </div>
             <hr>
             <div style="text-align: center;">
-                <button type="submit" class="header-button btn-green">Create</button>
+                <?php 
+                    if($edit_mode) {
+                        echo "<button type='submit' name='done' class='header-button btn-green'>Done</button>";
+                        echo "<button type='submit' name='next' class='header-button btn-green' style='margin-left: 1%;'>Next</button>";
+                    } else {
+                        echo "<button type='submit' name='next' class='header-button btn-green'>Next</button>";
+                    }
+                ?>
             </div>
         </form>
     </div>
