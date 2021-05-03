@@ -95,6 +95,7 @@ function viewTutorial() {
                         $title = $result['title'];
                         $date = $result['date'];
                         $description = $result['description'];
+                        $code = $result['code'];
                         if($result['userID'] != $_COOKIE['userID']) {
                             continue;
                         }
@@ -108,7 +109,9 @@ function viewTutorial() {
                             <hr>
                             <p>
                                 <b>Description: </b> 
-                                $description
+                                $description <br>
+                                <b>Code: </b>
+                                $code
                             </p>
                             <div class='tutorial-button-container'>
                                 <form class='tutorial-button-container' method='get' action='". $_SERVER['PHP_SELF'] . "'>
